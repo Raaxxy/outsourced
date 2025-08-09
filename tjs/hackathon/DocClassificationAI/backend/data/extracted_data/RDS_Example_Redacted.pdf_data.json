@@ -1,0 +1,10 @@
+{
+  "disability_info": {
+    "has_disability_mention": true,
+    "disability_types": [],
+    "service_connected": true,
+    "disability_percentage": null
+  },
+  "extraction_timestamp": "2025-08-09T19:47:37.809756",
+  "document_type": "RDS"
+}

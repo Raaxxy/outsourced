@@ -1,0 +1,15 @@
+{
+  "disability_info": {
+    "has_disability_mention": true,
+    "disability_types": [],
+    "service_connected": false,
+    "disability_percentage": null
+  },
+  "va_forms": [
+    "214",
+    "21"
+  ],
+  "primary_form": "214",
+  "extraction_timestamp": "2025-08-09T22:42:59.431306",
+  "document_type": "RDL"
+}

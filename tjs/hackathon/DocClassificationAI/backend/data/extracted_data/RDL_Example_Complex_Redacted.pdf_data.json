@@ -1,0 +1,17 @@
+{
+  "disability_info": {
+    "has_disability_mention": true,
+    "disability_types": [],
+    "service_connected": true,
+    "disability_percentage": null
+  },
+  "va_forms": [
+    "21"
+  ],
+  "primary_form": "21",
+  "diagnostic_codes": "7804",
+  "medical_conditions": "is denied",
+  "cfr_references": "3.317",
+  "extraction_timestamp": "2025-08-09T22:42:44.503809",
+  "document_type": "RDL"
+}

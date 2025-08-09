@@ -1,0 +1,13 @@
+# LLM API Keys
+GROQ_API_KEY=your_groq_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
+GOOGLE_API_KEY=AIzaSyBMWRcUQJ_CX4nyCWqQ8bv8ZXNlMkMoLow
+
+# Application Settings
+LOG_LEVEL=INFO
+UPLOAD_DIR=backend/data/uploads
+BASE_DATA_PATH=backend/data
+
+# Confidence Thresholds
+HIGH_CONFIDENCE_THRESHOLD=0.8
+LOW_CONFIDENCE_THRESHOLD=0.6 
