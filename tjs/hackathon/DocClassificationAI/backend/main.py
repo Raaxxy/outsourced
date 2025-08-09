@@ -18,6 +18,56 @@ from agents.strand_pipeline import StrandPipeline
 from utils.file_ops import FileOperations
 from utils.ocr_helpers import OCRHelpers
 
+
+
+def generate_veteran_summary(extracted_data: Dict[str, Any], document_type: str, filename: str) -> str:
+    """Generate a veteran summary from extracted data."""
+    
+    # Get veteran name
+    veteran_name = "Unknown Veteran"
+    if extracted_data.get("primary_name"):
+        veteran_name = extracted_data["primary_name"]
+    elif extracted_data.get("names") and len(extracted_data["names"]) > 0:
+        veteran_name = extracted_data["names"][0]
+    
+    # Start building summary
+    summary_lines = [f"**Veteran Summary: {veteran_name}**"]
+    
+    # Add document type
+    doc_type_display = document_type.replace('_', ' ').title()
+    summary_lines.append(f"• Document Type: {doc_type_display}")
+    
+    # Add SSN if available
+    if extracted_data.get("ssn"):
+        ssn_masked = f"***-**-{extracted_data['ssn'][-4:]}" if len(extracted_data['ssn']) >= 4 else "***-**-****"
+        summary_lines.append(f"• SSN: {ssn_masked}")
+    
+    # Add contact info
+    if extracted_data.get("primary_email"):
+        summary_lines.append(f"• Email: {extracted_data['primary_email']}")
+    
+    if extracted_data.get("primary_phone"):
+        summary_lines.append(f"• Phone: {extracted_data['primary_phone']}")
+    
+    # Add disability information
+    disability_info = extracted_data.get("disability_info", {})
+    if disability_info.get("disability_percentage"):
+        summary_lines.append(f"• Disability Rating: {disability_info['disability_percentage']}%")
+    
+    if disability_info.get("service_connected"):
+        summary_lines.append(f"• Service Connected: Yes")
+    
+    # Add VA forms if present
+    if extracted_data.get("va_forms"):
+        forms = extracted_data["va_forms"]
+        if isinstance(forms, list):
+            summary_lines.append(f"• VA Forms: {', '.join(forms)}")
+        else:
+            summary_lines.append(f"• VA Forms: {forms}")
+    
+    return "\n".join(summary_lines)
+
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -83,6 +133,7 @@ class UploadResponse(BaseModel):
     total_files: int
     successful_files: int
     failed_files: int
+    veteran_summary: str | None = None
 
 @app.get("/")
 async def root():
@@ -202,19 +253,33 @@ async def upload_documents(
                 status="failed",
                 error=str(e)
             ))
+
+        # (Keep all the existing file processing code above this point)
     
-    # Create response
-    response = UploadResponse(
-        message=f"Processed {len(files)} files successfully",
-        processed_files=processed_files,
-        total_files=len(files),
-        successful_files=successful_files,
-        failed_files=failed_files
-    )
-    
-    logger.info(f"Upload processing completed: {successful_files} successful, {failed_files} failed")
-    
-    return response
+        # Generate veteran summary for single document uploads
+        veteran_summary = None
+        if len(files) == 1 and successful_files == 1:
+            successful_result = next((f for f in processed_files if f.status == "success"), None)
+            if successful_result and successful_result.extracted_data:
+                veteran_summary = generate_veteran_summary(
+                    successful_result.extracted_data, 
+                    successful_result.document_type, 
+                    successful_result.filename
+                )
+
+        # Create response
+        response = UploadResponse(
+            message=f"Processed {len(files)} files successfully",
+            processed_files=processed_files,
+            total_files=len(files),
+            successful_files=successful_files,
+            failed_files=failed_files,
+            veteran_summary=veteran_summary
+        )
+
+        logger.info(f"Upload processing completed: {successful_files} successful, {failed_files} failed")
+
+        return response
 
 @app.get("/pipeline/strands")
 async def get_pipeline_strands():

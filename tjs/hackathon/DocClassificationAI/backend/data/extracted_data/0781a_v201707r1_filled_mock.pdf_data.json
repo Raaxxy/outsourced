@@ -1,0 +1,23 @@
+{
+  "emails": [
+    "john.doe@example.com"
+  ],
+  "primary_email": "john.doe@example.com",
+  "phone_numbers": [
+    "800-827-1000",
+    "800-273-8255"
+  ],
+  "primary_phone": "800-827-1000",
+  "disability_info": {
+    "has_disability_mention": true,
+    "disability_types": [],
+    "service_connected": false,
+    "disability_percentage": null
+  },
+  "va_forms": [
+    "21"
+  ],
+  "primary_form": "21",
+  "extraction_timestamp": "2025-08-09T23:57:51.518731",
+  "document_type": "VA Forms"
+}

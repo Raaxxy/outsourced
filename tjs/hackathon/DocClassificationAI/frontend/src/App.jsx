@@ -330,7 +330,20 @@ function App() {
           </div>
         )}
 
-        {/* System Info */}
+        {/* Add this right after the Processing Results header */}
+        {results && results.veteran_summary && (
+          <div className="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h3 className="text-lg font-semibold text-blue-900 mb-3 flex items-center">
+              <DocumentTextIcon className="w-5 h-5 mr-2" />
+              Veteran Summary
+            </h3>
+            <div className="text-sm text-blue-800 whitespace-pre-line">
+              {results.veteran_summary}
+            </div>
+          </div>
+        )}
+
+        {/* System Info
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="card">
             <div className="flex items-center">
@@ -361,7 +374,7 @@ function App() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   )

@@ -1,0 +1,25 @@
+{
+  "phone_numbers": [
+    "1118951900",
+    "800-827-1000"
+  ],
+  "primary_phone": "1118951900",
+  "names": [
+    "Encounter Datp From Csail Lll Ell Ll Lillie L Lll Llg",
+    "Diagnosis Resolution See",
+    "Encounter Datp From Llg"
+  ],
+  "primary_name": "Encounter Datp From Csail Lll Ell Ll Lillie L Lll Llg",
+  "disability_info": {
+    "has_disability_mention": true,
+    "disability_types": [],
+    "service_connected": false,
+    "disability_percentage": null
+  },
+  "va_forms": [
+    "21"
+  ],
+  "primary_form": "21",
+  "extraction_timestamp": "2025-08-09T23:40:23.980157",
+  "document_type": "VA Forms"
+}
